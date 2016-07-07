@@ -18,25 +18,35 @@ HTMLWidgets.widget({
           $(el).treeview({
 	      data: JSON.parse(x.options.data),
 	      multiSelect: x.options.multiSelect==1?true:false,
-	      onNodeSelected: function(event, data) {
-		  var nodeId = data.nodeId;
+	      onNodeSelected: function(event, node) {
+		  //var nodeId = node.nodeId;
+		  //all child node of the selected parent node should be selected
+		  for(var i in node.nodes) {
+                      var child = node.nodes[i];
+                      $(this).treeview(true).selectNode(child.nodeId);
+		  }
 		  //$(el).treeview('toggleNodeSelected', [ nodeId, { silent: true } ]);
 		  selectedNodes = $(el).treeview('getSelected', 0);
-		  data = []
+		  var d = [];
 		  for (var i=0; i<selectedNodes.length; i++) {
-		      data.push(selectedNodes[i].val)
+		      d.push(selectedNodes[i].val)
 		  }
-		  syncData(data.join(','))
+		  syncData(d.join(','))
 	      },
-	      onNodeUnselected: function(event, data) {
-		  var nodeId = data.nodeId;
+	      onNodeUnselected: function(event, node) {
+		  //var nodeId = node.nodeId;
+		  //all child node of the unselected parent node should be unselected
+		  for(var i in node.nodes) {
+                      var child = node.nodes[i];
+                      $(this).treeview(true).unselectNode(child.nodeId);
+		  }
 		  //$(el).treeview('toggleNodeSelected', [ nodeId, { silent: true } ]);
 		  selectedNodes = $(el).treeview('getSelected', 0);
-		  data = []
+		  var d = [];
 		  for (var i=0; i<selectedNodes.length; i++) {
-		      data.push(selectedNodes[i].val)
+		      d.push(selectedNodes[i].val)
 		  }
-		  syncData(data.join(','))
+		  syncData(d.join(','))
 	      }
 	  });
 	  //somehow bstreeview width is set to 960px, need to override that
