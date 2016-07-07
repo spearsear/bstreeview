@@ -1,0 +1,15 @@
+dependencies:
+  - name: jquery
+    version: 1.9.1
+    src: "htmlwidgets/lib/jquery"
+    script: jquery.min.js
+  - name: bootstrap-treeview
+    version: 1.0
+    src: "htmlwidgets/lib/bstreeview"
+    script:
+      - js/bootstrap-treeview.min.js
+    stylesheet:
+      - css/bootstrap.css
+      - css/bootstrap-treeview.min.css
+
+
